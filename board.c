@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include "board.h"
 
-#define N_BOARD           15
 #define N_COINPOS         12
 #define MAX_COIN          4
 

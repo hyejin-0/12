@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <time.h>
 #include "board.h"
-#include "board.c"
 
 #define MAX_CHARNAME   200
 #define N_PLAYER       3
@@ -129,7 +128,7 @@ int main(int argc, char *argv[])
 		if (player_position[turn] == N_BOARD-1)
 		   player_status[turn] = PLAYERSTATUS_END;
 		//printf()
-		printf("Die result : %i, %s moved to %i\n", player_position[turn], player_name[turn]);
+		printf("Die result : %i, %s moved to %i\n", step, player_name[turn], player_position[turn]);
 		
 		//2-4. 동전 줍기
 		coinResult = board_getBoardCoin(pos);
@@ -149,7 +148,7 @@ int main(int argc, char *argv[])
 			printf("Shark moved to %i\n", shark_pos);
 			checkDie(); 
 		}
-	} while(player_status[i] == PLAYERSTATUS_DIE);
+	} while(player_status[turn] != 1);
 	    
 	//3. 정리(승자 계산, 출력 등) 
 	int game_end(void)
@@ -175,7 +174,7 @@ int main(int argc, char *argv[])
 		int cnt = 0;
 		for (i=0;i<N_PLAYER;i++)
 		{
-			if (player_status[i] == PLAYERSTATUS_END)
+			if (player_status[i] == PLAYERSTATUS_DIE)
 			   cnt++;
 		}
 		return cnt;
@@ -196,7 +195,12 @@ int main(int argc, char *argv[])
 			}
 		}
 		return winner;
+	
 	}
+	
+		printf("GAME END!!\n");
+		printf("%d players are alive! Winner is %s\n", getAlivePlayer(), player_name[getWinner()]);
+
 	
 	return 0;
 }
